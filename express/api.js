@@ -1,6 +1,6 @@
 const express = require("express");
 const serverless = require("serverless-http");
-const getRecipes = require('../services/notion');
+const { getRecipes, getRecipeContent } = require('../services/notion');
 
 const app = express();
 const router = express.Router();
@@ -8,6 +8,11 @@ const router = express.Router();
 router.get('/recipes', async(req, res) => {
   const recipes = await getRecipes()
   res.json(recipes)
+});
+
+router.get('/recipe/:recipeId', async(req, res) => {
+  const recipeContent = await getRecipeContent(req.params.recipeId)
+  res.json(recipeContent)
 });
 
 app.use(`/.netlify/functions/api`, router);
