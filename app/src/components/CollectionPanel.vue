@@ -1,28 +1,26 @@
 <template>
-<div class="panel">
-    <div class="image">
-        <img :src="props.recipe.img" :alt="props.recipe.title" />
-    </div>
-    <div class="content">
-        <h3>{{ props.recipe.title }}</h3>
-        <div class="tags">
-            <span class="tag" v-for="tag in props.recipe.tags" :key="tag">{{ tag }}</span>
+    <div class="collection">
+        <div class="image">
+            <img :src="props.collection.img" alt="">
+        </div>
+        <div class="content">
+            <h2>{{ props.collection.name }}</h2>
+            <h3>{{ props.collection.desc }}</h3>
         </div>
     </div>
-</div>
 </template>
 
 <script lang="ts" setup>
 import { defineProps } from 'vue';
 
-const props = defineProps(['recipe'])
+const props = defineProps(['collection'])
 
 </script>
 
 <style scoped>
 
-.panel {
-    aspect-ratio: 2 / 3;
+.collection {
+    aspect-ratio: 16 / 9;
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
@@ -43,6 +41,8 @@ const props = defineProps(['recipe'])
     flex-direction: column;
     justify-content: flex-end;
     margin-left: 1.5rem;
+    color: white;
+    padding: 3rem;
 }
 
 img {
@@ -57,31 +57,18 @@ img {
     transition: transform .5s;
 }
 
-.panel:hover img {
+.collection:hover img {
   transform: scale(1.2);
   transition: transform 0.5s;
 }
 
+.content h2 {
+    font-size: 300%;
+    margin-bottom: 0.5rem;
+}
+
 .content h3 {
-    color: white;
-    margin-bottom: 1.5rem;
-}
-
-.tag {
-    background-color: var(--primary);
-    padding: 0.3rem 0.4rem;
-    font-size: 80%;
-    box-sizing: border-box;
-}
-
-.tag:not(:last-child) {
-    margin-right: 0.5rem;
-}
-
-.tag:hover {
-    background-color: transparent;
-    color: var(--primary); 
-    border: 1px solid var(--primary); 
+    font-weight: 400;
 }
 
 </style>
