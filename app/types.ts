@@ -8,8 +8,5 @@ export interface Recipe {
     tags: Array<string>
     time: string
     collections: Array<string>
-    ingredientsHeading?: string
-    ingredientsList?: Array<string>
-    prepHeading?: string
-    prepList?: Array<string>
+    content?: Object
 }

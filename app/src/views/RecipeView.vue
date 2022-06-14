@@ -12,9 +12,9 @@
 
         <div class="ingredients">
 
-            <h3>{{ recipe.ingredientsHeading }}</h3>
+            <h3>{{ recipe.content.ingredientsHeading }}</h3>
             <table>
-                <tr v-for="item in recipe.ingredientsList" :key="item.ingredient">
+                <tr v-for="item in recipe.content.ingredientsList" :key="item.ingredient">
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.ingredient }}</td>
                 </tr>
@@ -23,9 +23,9 @@
         </div>
 
         <div class="prep">
-            <h3>{{ recipe.prepHeading }}</h3>
+            <h3>{{ recipe.content.prepHeading }}</h3>
             <ol>
-                <li v-for="item in recipe.prepList" :key="item">{{ item }}</li>
+                <li v-for="item in recipe.content.prepList" :key="item">{{ item }}</li>
             </ol>
         </div>
 
@@ -37,7 +37,6 @@
 import { useRoute } from 'vue-router'
 import { computed } from '@vue/reactivity';
 import { useStore } from 'vuex';
-import { watch } from 'vue';
 
 const store = useStore()
 
@@ -57,64 +56,53 @@ let recipe = {
    collections:[
       "Schnelle Sommergerichte"
    ],
-   ingredientsHeading:"Zutaten für 4 Portionen",
-   ingredientsList:[
-      {
-         "quantity":"1 Packung",
-         "ingredient":"Sobanudeln (japanische Buchweizennudeln)"
-      },
-      {
-         "quantity":"½",
-         "ingredient":"Gurke"
-      },
-      {
-         "quantity":"1 Handvoll",
-         "ingredient":"Edamame"
-      },
-      {
-         "quantity":"2",
-         "ingredient":"Frühlingszwiebeln"
-      },
-      {
-         "quantity":"4 EL",
-         "ingredient":"Erdnussbutter"
-      },
-      {
-         "quantity":"2 EL",
-         "ingredient":"Sojasauce"
-      },
-      {
-         "quantity":"1 TL",
-         "ingredient":"Reisessig"
-      },
-      {
-         "quantity":"4 EL",
-         "ingredient":"Wasser"
-      }
-   ],
-   prepHeading:"Zubereitung",
-   prepList:[
-      "Die Sobanudeln und Edamame nach Packungsanweisung kochen, dann mit eiskaltem Wasser abbrausen. ",
-      "Die Gurke in dünne Streifen schneiden. Die Frühlingszwiebeln putzen und in Scheiben schneiden.",
-      "Für das Dressing Erdnussbutter, Sojasauce, Reisessig und Wasser verrühren und gut durchmischen.",
-      "Das Gemüse mit den Nudeln mischen, das Dressing darübergeben und gut vermengen. Bis zum Servieren kaltstellen."
-   ]
+   content: {
+        ingredientsHeading:"Zutaten für 4 Portionen",
+        ingredientsList:[
+            {
+                "quantity":"1 Packung",
+                "ingredient":"Sobanudeln (japanische Buchweizennudeln)"
+            },
+            {
+                "quantity":"½",
+                "ingredient":"Gurke"
+            },
+            {
+                "quantity":"1 Handvoll",
+                "ingredient":"Edamame"
+            },
+            {
+                "quantity":"2",
+                "ingredient":"Frühlingszwiebeln"
+            },
+            {
+                "quantity":"4 EL",
+                "ingredient":"Erdnussbutter"
+            },
+            {
+                "quantity":"2 EL",
+                "ingredient":"Sojasauce"
+            },
+            {
+                "quantity":"1 TL",
+                "ingredient":"Reisessig"
+            },
+            {
+                "quantity":"4 EL",
+                "ingredient":"Wasser"
+            }
+        ],
+        prepHeading:"Zubereitung",
+        prepList:[
+            "Die Sobanudeln und Edamame nach Packungsanweisung kochen, dann mit eiskaltem Wasser abbrausen. ",
+            "Die Gurke in dünne Streifen schneiden. Die Frühlingszwiebeln putzen und in Scheiben schneiden.",
+            "Für das Dressing Erdnussbutter, Sojasauce, Reisessig und Wasser verrühren und gut durchmischen.",
+            "Das Gemüse mit den Nudeln mischen, das Dressing darübergeben und gut vermengen. Bis zum Servieren kaltstellen."
+        ]
+   }
 }
 
-watch(store.state, async () => {
-    console.log('state changed')
-});
-
-// recipe = (computed(() => store.getters.getRecipeContent(slug))).value
-
-// if recipe has no content yet, fetch from the API
-if (!recipe.ingredientsHeading) {
-    const resp = await fetch('https://notion-cooks.netlify.app/.netlify/functions/api/recipe/' + slug);
-    const data = await resp.json();
-    
-    store.commit('setRecipeContent', data);
-}
-
+recipe = (computed(() => store.getters.getRecipeContent(slug))).value
 
 </script>
 

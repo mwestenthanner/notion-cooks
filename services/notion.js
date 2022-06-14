@@ -14,8 +14,10 @@ async function getRecipes () {
       }
     
     const { results } = await notion.request(payload)
-    
-    const recipes = results.map((page) => {
+
+    const recipes = await Promise.all(results.map(async (page) => {
+      try {
+      
         return {
           id: page.id,
           title: page.properties.Name.title[0].text.content,
@@ -25,11 +27,15 @@ async function getRecipes () {
           slug: page.properties.Slug.formula.string,
           tags: page.properties.Tags.multi_select.map((tag) => { return tag.name }),
           time: page.properties.Time.select.name,
-          collections: page.properties.Collections.multi_select.map((collection) => { return collection.name })
+          collections: page.properties.Collections.multi_select.map((collection) => { return collection.name }),
+          content: await getRecipeContent(page.id)
         }
-      })
+
+      } catch(err) {
+          throw err;
+      }
+    }));
     
-    console.log(recipes)
     return recipes;
 }
 
