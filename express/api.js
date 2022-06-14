@@ -15,6 +15,10 @@ router.get('/recipe/:recipeId', async(req, res) => {
   res.json(recipeContent)
 });
 
+app.use(cors({
+  origin: '*'
+}));
+
 app.use(`/.netlify/functions/api`, router);
 
 module.exports = app;

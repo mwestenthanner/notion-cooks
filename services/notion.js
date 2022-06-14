@@ -25,7 +25,7 @@ async function getRecipes () {
           slug: page.properties.Slug.formula.string,
           tags: page.properties.Tags.multi_select.map((tag) => { return tag.name }),
           time: page.properties.Time.select.name,
-          collection: page.properties.Collections.multi_select.map((collection) => { return collection.name }),
+          collections: page.properties.Collections.multi_select.map((collection) => { return collection.name }),
         }
       })
     
@@ -61,7 +61,7 @@ async function getRecipeContent (pageSlug) {
     category: page.results[0].properties.Category.select.name,
     tags: page.results[0].properties.Tags.multi_select.map((tag) => { return tag.name }),
     time: page.results[0].properties.Time.select.name,
-    collection: page.results[0].properties.Collections.multi_select.map((collection) => { return collection.name }),
+    collections: page.results[0].properties.Collections.multi_select.map((collection) => { return collection.name }),
     ingredientsHeading: content.results[0].heading_2.rich_text[0].plain_text,
     ingredientsList: await getTableContent(content.results[1].id),
     prepHeading: content.results[2].heading_2.rich_text[0].plain_text,
