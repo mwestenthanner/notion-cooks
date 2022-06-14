@@ -1,0 +1,42 @@
+<template>
+
+    <div class="recipes">
+      <h2>Neueste Rezepte</h2>
+      <div class="panels">
+        <RecipePanel v-for="item in recipeList" :key="item.slug" :recipe="item"></RecipePanel>  
+      </div>
+    </div>
+
+</template>
+
+<script lang="ts" setup>
+import RecipePanel from '../components/RecipePanel.vue';
+import { computed } from '@vue/reactivity';
+import { useStore } from 'vuex';
+
+const store = useStore()
+
+const recipeList = computed(() => store.getters.getRecipeList)
+
+
+</script>
+
+<style>
+
+.recipes {
+  max-width: 90%;
+  margin-left: 5%;
+  margin-bottom: 5rem;
+}
+
+.recipes h2 {
+  margin-bottom: 3rem;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem,16rem));
+  grid-gap: 2rem;
+}
+
+</style>

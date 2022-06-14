@@ -7,9 +7,7 @@
 
   <main>
 
-    <Suspense>
-      <router-view/>
-    </Suspense>
+    <router-view/>
 
   </main>
 
