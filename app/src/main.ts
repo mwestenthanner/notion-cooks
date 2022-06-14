@@ -1,9 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
-import { createPinia } from 'pinia'
+import store from './store'
 
-createApp(App)
-    .mount('#app')
-    
-App.use(createPinia())
+createApp(App).use(store).mount('#app')

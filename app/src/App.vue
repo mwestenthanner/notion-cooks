@@ -1,30 +1,18 @@
 <template>
-  <div class="header">
-    <div class="title">Meine Rezepte</div>
-  </div>
+  <header>
+    <h1>Meine Rezepte</h1>
+  </header>
   <main>
     <RecipePanel></RecipePanel>
   </main>
-  <div class="footer">
+  <footer>
     <div class="credits">© Marianne Westenthanner 2022</div>
-  </div>
+  </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import RecipePanel from './components/RecipePanel.vue'
+<script lang="ts" setup>
+import RecipePanel from './components/RecipePanel.vue';
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    RecipePanel
-  },
-  setup() {
-
-    console.log('App started')
-
-  }
-});
 </script>
 
 <style>

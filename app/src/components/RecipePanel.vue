@@ -1,15 +1,11 @@
 <template>
-    <div class="panel">This is a recipe</div>
+This is a recipe
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent({
-  name: 'RecipePanel'
-});
 </script>
 
-<style scoped>
+<style>
 
 </style>
