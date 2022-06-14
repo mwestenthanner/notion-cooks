@@ -33,13 +33,18 @@
 </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup async>
 import { useRoute } from 'vue-router'
+import { computed } from '@vue/reactivity';
+import { useStore } from 'vuex';
+import { watch } from 'vue';
+
+const store = useStore()
 
 const route = useRoute()
 const slug = route.params.slug
 
-const recipe = {
+let recipe = {
    title:"Sobanudelsalat",
    desc:"Kühl, erfrischend und in 10 Minuten fertig - der perfekte Lunch für heiße Sommertage.",
    img:"https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0f206c11-73a2-4315-a91f-0c55c7cd60df/PXL_20220611_164502586.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T135218Z&X-Amz-Expires=3600&X-Amz-Signature=598c4b3cb80c57e7695fd3fdcbc7f6b3a8f060cc31cfaa7f0c3ccf85611e70a3&X-Amz-SignedHeaders=host&x-id=GetObject",
@@ -95,6 +100,21 @@ const recipe = {
       "Das Gemüse mit den Nudeln mischen, das Dressing darübergeben und gut vermengen. Bis zum Servieren kaltstellen."
    ]
 }
+
+watch(store.state, async () => {
+    console.log('state changed')
+});
+
+// recipe = (computed(() => store.getters.getRecipeContent(slug))).value
+
+// if recipe has no content yet, fetch from the API
+if (!recipe.ingredientsHeading) {
+    const resp = await fetch('https://notion-cooks.netlify.app/.netlify/functions/api/recipe/' + slug);
+    const data = await resp.json();
+    
+    store.commit('setRecipeContent', data);
+}
+
 
 </script>
 

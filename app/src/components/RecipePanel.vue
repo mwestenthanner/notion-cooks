@@ -1,4 +1,5 @@
 <template>
+<router-link :to="'/recipe/' + props.recipe.slug">
 <div class="panel">
     <div class="image">
         <img :src="props.recipe.img" :alt="props.recipe.title" />
@@ -10,6 +11,7 @@
         </div>
     </div>
 </div>
+</router-link>
 </template>
 
 <script lang="ts" setup>
