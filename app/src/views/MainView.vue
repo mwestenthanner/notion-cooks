@@ -48,8 +48,6 @@ const collections = [
 }
 
 .recipes {
-  max-width: 90%;
-  margin-left: 5%;
   margin-bottom: 5rem;
 }
 

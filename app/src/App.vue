@@ -1,7 +1,7 @@
 <template>
 
   <header>
-    <router-link to="/"><h1>recipe<span class="heading">box</span></h1></router-link>
+    <MainTitle></MainTitle>
     <NavList></NavList>
   </header>
 
@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts" setup async>
+import MainTitle from './components/MainTitle.vue';
 import NavList from './components/NavList.vue';
 import { useStore } from 'vuex';
 import { onBeforeMount } from 'vue';
@@ -39,25 +40,21 @@ onBeforeMount(async () => {
 
 <style>
 
+header, main, footer > div {
+  max-width: 70%;
+  margin-left: 15%;
+}
+
 header {
   display: flex;
   justify-content: space-between;
-  margin: 4rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   align-items: center;
 }
 
-header h1 {
-  font-weight: 400;
-  font-size: 300%;
-}
-
-.heading {
-  font-weight: 800;
-  border-bottom: 0.5rem solid var(--primary);
-}
-
 main {
-  margin: 2rem 4rem;
+  margin-bottom: 4rem;
 }
 
 footer {

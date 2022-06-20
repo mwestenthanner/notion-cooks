@@ -42,7 +42,7 @@ const props = defineProps(['collection'])
     justify-content: flex-end;
     margin-left: 1.5rem;
     color: white;
-    padding: 3rem;
+    padding: 5%;
 }
 
 img {

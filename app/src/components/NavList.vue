@@ -1,10 +1,9 @@
 <template>
 <nav>
     <ul>
+        <li>Alle Rezepte</li>
         <li>Kategorien</li>
         <li>Sammlungen</li>
-        <li>Zeitaufwand</li>
-        <li>Alle Rezepte</li>
     </ul>
 </nav>
 </template>

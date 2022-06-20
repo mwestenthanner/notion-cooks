@@ -92,6 +92,4 @@ function getListItems (list) {
 
 }
 
-getRecipes()
-
 module.exports = { getRecipes, getRecipeContent }
