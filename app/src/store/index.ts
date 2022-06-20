@@ -16,12 +16,17 @@ export default createStore({
         collections: []
       } as Recipe
     ],
-    categoryList: [
-      'Brotzeit',
-      'Grillen',
-      'Pasta',
-      'Reis',
-      'Kartoffeln'
+    tagList: [
+      ''
+    ],
+    collectionList: [
+      {
+        id: '',
+        title: '',
+        subheading: '',
+        desc: '',
+        img: ''
+      }
     ]
   },
   getters: {
@@ -35,7 +40,15 @@ export default createStore({
     },
 
     getCategories(state) {
-      return state.categoryList;
+      return state.tagList;
+    },
+
+    getCollections(state) {
+      return state.collectionList;
+    },
+
+    getCollectionFromId: (state) => (id: string) => {
+      return state.collectionList.find(item => item.id === id);
     },
 
   },
@@ -48,6 +61,27 @@ export default createStore({
     setRecipeContent(state, recipe: Recipe) {
       const index = state.recipeList.findIndex(item => item.slug === recipe.slug);
       state.recipeList[index] = recipe;
+    },
+
+    setCollectionList(state, collections) {
+      state.collectionList = collections
+    },
+
+    setTagListFromRecipes(state) {
+
+      const tags: string[] = []
+
+      state.recipeList.forEach(recipe => {
+
+        recipe.tags.forEach(tag => {
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+          }
+        });
+
+      });
+
+      state.tagList = tags;
     }
 
   },

@@ -29,10 +29,15 @@ const store = useStore()
 // Fetch recipes from backend and store
 onBeforeMount(async () => {
 
-      const resp = await fetch('https://notion-cooks.netlify.app/.netlify/functions/api/recipes');
-      const data = await resp.json();
+      const recipeResp = await fetch('https://notion-cooks.netlify.app/.netlify/functions/api/recipes');
+      const recipeData = await recipeResp.json();
+
+      const collectionResp = await fetch('https://notion-cooks.netlify.app/.netlify/functions/api/collections');
+      const collectionData = await collectionResp.json();
       
-      store.commit('setRecipeList', data);
+      store.commit('setRecipeList', recipeData);
+      store.commit('setCollectionList', collectionData);
+      store.commit('setTagListFromRecipes');
 
     });
 
