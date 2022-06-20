@@ -84,8 +84,6 @@ async function getCollections() {
       }
     }));
 
-    console.log(collections)
-
     return collections;
 }
 
@@ -124,7 +122,5 @@ function getListItems (list) {
   return result;
 
 }
-
-getRecipes()
 
 module.exports = { getRecipes, getRecipeContent, getCollections }
