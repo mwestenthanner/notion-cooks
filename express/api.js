@@ -1,7 +1,7 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const cors = require('cors');
-const { getRecipes, getRecipeContent } = require('../services/notion');
+const { getRecipes, getRecipeContent, getCollections } = require('../services/notion');
 
 const app = express();
 const router = express.Router();
@@ -9,6 +9,11 @@ const router = express.Router();
 router.get('/recipes', async(req, res) => {
   const recipes = await getRecipes()
   res.json(recipes)
+});
+
+router.get('/collections', async(req, res) => {
+  const collections = await getCollections()
+  res.json(collections)
 });
 
 router.get('/recipe/:recipeId', async(req, res) => {

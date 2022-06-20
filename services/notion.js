@@ -6,6 +6,7 @@ const notion = new Client({
 })
 
 const database_id = process.env.NOTION_DATABASE_ID
+const collections_id = process.env.NOTION_COLLECTION_DB_ID
 
 async function getRecipes () {
     const payload = {
@@ -56,6 +57,36 @@ async function getRecipeContent(pageId) {
   return recipeContent;
 }
 
+async function getCollections() {
+
+    const payload = {
+      path: `databases/${collections_id}/query`,
+      method: 'POST',
+    }
+
+    const { results } = await notion.request(payload)
+
+    const collections = await Promise.all(results.map(async (page) => {
+      try {
+      
+        return {
+          id: page.id,
+          title: page.properties.Name.title[0].text.content,
+          subheading: page.properties.Subheading.rich_text[0].text.content,
+          desc: page.properties.Description.rich_text[0].text.content,
+          img: page.properties.Image.files[0].file.url,
+        }
+
+      } catch(err) {
+          throw err;
+      }
+    }));
+
+    console.log(collections)
+
+    return collections;
+}
+
 // Parses Notion simple tables, but only 2 cells per row
 async function getTableContent (tableId) {
 
@@ -92,4 +123,4 @@ function getListItems (list) {
 
 }
 
-module.exports = { getRecipes, getRecipeContent }
+module.exports = { getRecipes, getRecipeContent, getCollections }
