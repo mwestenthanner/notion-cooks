@@ -28,7 +28,7 @@ async function getRecipes () {
           slug: page.properties.Slug.formula.string,
           tags: page.properties.Tags.multi_select.map((tag) => { return tag.name }),
           time: page.properties.Time.select.name,
-          collections: page.properties.Collection.relation.map((collection) => { return collection.id }),
+          collections: page.properties.Collections.relation.map((collection) => { return collection.id }),
           content: await getRecipeContent(page.id)
         }
 
