@@ -9,7 +9,7 @@
 
 /* --- GLOBAL COLORS --- */
 :root {
-    --primary: #ff9a48;
+    --primary: rgba(255, 195, 98, 1);
     --secondary: #ffb9dd;
     --dark-gradient: linear-gradient(0deg,#000,#0000 60%);
 }

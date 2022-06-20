@@ -4,8 +4,8 @@
             <img :src="props.collection.img" alt="">
         </div>
         <div class="content">
-            <h2>{{ props.collection.name }}</h2>
-            <h3>{{ props.collection.desc }}</h3>
+            <h2>{{ props.collection.title }}</h2>
+            <h3>{{ props.collection.subheading }}</h3>
         </div>
     </div>
 </template>

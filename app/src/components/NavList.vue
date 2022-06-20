@@ -1,9 +1,9 @@
 <template>
 <nav>
     <ul>
-        <li>Alle Rezepte</li>
-        <li>Kategorien</li>
-        <li>Sammlungen</li>
+        <li><router-link to="/recipes">Alle Rezepte</router-link></li>
+        <li><router-link to="/">Kategorien</router-link></li>
+        <li><router-link to="/collections">Sammlungen</router-link></li>
     </ul>
 </nav>
 </template>
