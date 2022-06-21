@@ -77,6 +77,7 @@ async function getCollections() {
           subheading: page.properties.Subheading.rich_text[0].text.content,
           desc: page.properties.Description.rich_text[0].text.content,
           img: page.properties.Image.files[0].file.url,
+          slug: page.properties.Slug.formula.string 
         }
 
       } catch(err) {
