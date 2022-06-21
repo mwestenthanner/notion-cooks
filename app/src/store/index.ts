@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { Recipe } from '../../types'
+import { simpleSearch } from './filters'
 
 export default createStore({
   state: {
@@ -27,7 +28,9 @@ export default createStore({
         desc: '',
         img: ''
       }
-    ]
+    ],
+    searchTerm: '',
+    filters: []
   },
   getters: {
 
@@ -49,6 +52,14 @@ export default createStore({
 
     getCollectionFromId: (state) => (id: string) => {
       return state.collectionList.find(item => item.id === id);
+    },
+
+    getRecipesFromSearch(state) {
+      return simpleSearch(state.recipeList, state.searchTerm);
+    },
+
+    getSearchTerm(state) {
+      return state.searchTerm;
     },
 
   },
@@ -82,6 +93,10 @@ export default createStore({
       });
 
       state.tagList = tags;
+    },
+
+    setSearchTerm(state, search) {
+      state.searchTerm = search;
     }
 
   },

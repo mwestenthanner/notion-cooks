@@ -12,13 +12,12 @@
 <script lang="ts" setup>
 import SearchFilter from '../components/SearchFilter.vue';
 import RecipePanel from '../components/RecipePanel.vue';
-import { computed } from '@vue/reactivity';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore()
 
-const recipeList = computed(() => store.getters.getRecipeList)
-
+const recipeList = computed(() => store.getters.getRecipesFromSearch)
 
 </script>
 
