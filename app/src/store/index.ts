@@ -26,11 +26,16 @@ export default createStore({
         title: '',
         subheading: '',
         desc: '',
-        img: ''
+        img: '',
+        slug: ''
       }
     ],
     searchTerm: '',
-    filters: []
+    filters: {
+      tags: [],
+      time: [],
+      collection: ''
+    }
   },
   getters: {
 
@@ -42,6 +47,14 @@ export default createStore({
       return state.recipeList.find(item => item.slug === slug);
     },
 
+    getFilteredRecipes(state) {
+      return simpleSearch(state.recipeList, state.searchTerm);
+    },
+
+    getCollectionRecipes: (state) => (collectionId: string) => {
+      return state.recipeList.filter(item => item.collections.includes(collectionId));
+    },
+
     getCategories(state) {
       return state.tagList;
     },
@@ -50,12 +63,8 @@ export default createStore({
       return state.collectionList;
     },
 
-    getCollectionFromId: (state) => (id: string) => {
-      return state.collectionList.find(item => item.id === id);
-    },
-
-    getRecipesFromSearch(state) {
-      return simpleSearch(state.recipeList, state.searchTerm);
+    getCollectionFromSlug: (state) => (slug: string) => {
+      return state.collectionList.find(item => item.slug === slug);
     },
 
     getSearchTerm(state) {

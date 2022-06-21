@@ -17,7 +17,7 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 
-const recipeList = computed(() => store.getters.getRecipesFromSearch)
+const recipeList = computed(() => store.getters.getFilteredRecipes)
 
 </script>
 

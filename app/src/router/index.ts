@@ -3,6 +3,7 @@ import Main from '../views/MainView.vue'
 import RecipeList from '../views/RecipeListView.vue'
 import CollectionsList from '../views/CollectionsListView.vue'
 import Recipe from '../views/RecipeView.vue'
+import Collection from '../views/CollectionView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,18 +20,21 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/recipe/',
     name: 'recipelist',
+    alias: '/recipes',
     component: RecipeList
   },
   {
-    path: '/recipes',
-    name: 'recipelist',
-    component: RecipeList
-  },
-  {
-    path: '/collections',
+    path: '/collection/',
+    alias: '/collections',
     name: 'collections',
     component: CollectionsList
-  }
+  },
+  {
+    path: '/collection/:slug',
+    name: 'collection',
+    component: Collection,
+    props: true
+  },
 ]
 
 const router = createRouter({

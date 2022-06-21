@@ -1,4 +1,5 @@
 <template>
+    <router-link :to="'/collection/' + props.collection.slug">
     <div class="collection">
         <div class="image">
             <img :src="props.collection.img" alt="">
@@ -8,6 +9,7 @@
             <h3>{{ props.collection.subheading }}</h3>
         </div>
     </div>
+    </router-link>
 </template>
 
 <script lang="ts" setup>

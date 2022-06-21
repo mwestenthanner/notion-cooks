@@ -34,3 +34,33 @@ export function advancedSearch(list: Array<Recipe>, searchTerm: string) {
     })
 
 }
+
+export function filterByTime(list: Array<Recipe>, time: Array<string>) {
+    if (time.length == 0) {
+        return list;
+    }
+
+    else return list.filter(item => {
+
+        if(time.includes(item.time)) {
+            return true;
+        } else return false;
+      
+    })
+}
+
+export function filterByTags(list: Array<Recipe>, tags: Array<string>) {
+    
+    if (tags.length == 0) {
+        return list;
+    }
+
+    else return list.filter(item => {
+
+        if(tags.some(tag => item.tags.includes(tag)) == true) {
+            return true;
+        } else return false;
+      
+    })
+
+}
