@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { Recipe } from '../../types'
-import { simpleSearch, filterByTags,createSlug } from './filters'
+import { simpleSearch, filterByTags, createSlug, matchTagImage } from './filters'
 
 export default createStore({
   state: {
@@ -20,7 +20,8 @@ export default createStore({
     tagList: [
       {
         name: '',
-        slug: ''
+        slug: '',
+        img: ''
       }
     ],
     collectionList: [
@@ -58,7 +59,7 @@ export default createStore({
       return state.recipeList.filter(item => item.collections.includes(collectionId));
     },
 
-    getCategories(state) {
+    getTags(state) {
       return state.tagList;
     },
 
@@ -96,7 +97,7 @@ export default createStore({
 
     setTagListFromRecipes(state) {
 
-      const tags: { name: string; slug: string; }[] = []
+      const tags: { name: string; slug: string; img: string; }[] = []
 
       state.recipeList.forEach(recipe => {
 
@@ -105,7 +106,8 @@ export default createStore({
 
             const tagObject = {
               name: tag,
-              slug: createSlug(tag)
+              slug: createSlug(tag),
+              img: matchTagImage(tag)
             }
 
             tags.push(tagObject);
@@ -123,6 +125,16 @@ export default createStore({
 
     setTagFilter(state, tags) {
       state.filters.tags = tags;
+    },
+
+    addTagFilter(state, tags) {
+      state.filters.tags = state.filters.tags.concat(tags);
+    },
+
+    removeTagFilter(state, tags) {
+      state.filters.tags = state.filters.tags.filter( (element) => {
+        return tags.indexOf(element) < 0;
+      } );
     }
 
   },

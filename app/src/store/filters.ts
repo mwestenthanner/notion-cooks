@@ -49,7 +49,7 @@ export function filterByTime(list: Array<Recipe>, time: Array<string>) {
     })
 }
 
-export function filterByTags(list: Array<Recipe>, filterTags: Array<string>, tags: Array<{ name: string; slug: string; }>) {
+export function filterByTags(list: Array<Recipe>, filterTags: Array<string>, tags: Array<{ name: string; slug: string; img: string; }>) {
     
     if (filterTags.length == 0) {
         return list;
@@ -76,6 +76,18 @@ export function filterByTags(list: Array<Recipe>, filterTags: Array<string>, tag
 
 }
 
+export function getRecipeTagObjects(recipe: Recipe, tags: Array<{ name: string; slug: string; img: string; }>) {
+
+    return tags.filter(tag => {
+
+        if(recipe.tags.includes(tag.name)) {
+            return true;
+        } else return false;
+      
+    })
+
+}
+
 export function createSlug(tag: string) {
 
     // Remove Umlaut/Accents
@@ -88,14 +100,15 @@ export function createSlug(tag: string) {
 
 }
 
-export function getRecipeTagObjects(recipe: Recipe, tags: Array<{ name: string; slug: string; }>) {
+export function matchTagImage(tagName: string) {
 
-    return tags.filter(tag => {
+    try {
+        require('../../public/img/filters/' + tagName + '.svg')
+        return '/img/filters/' + tagName + '.svg';
+      } catch (e) {
+        return '/img/filters/default.svg';
+    }
 
-        if(recipe.tags.includes(tag.name)) {
-            return true;
-        } else return false;
-      
-    })
+    
 
 }
