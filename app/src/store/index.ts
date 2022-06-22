@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { Recipe } from '../../types'
-import { simpleSearch, filterByTags, createSlug, matchTagImage } from './filters'
+import { simpleSearch, filterByTags, filterByTime, createSlug, matchTagImage } from './filters'
 
 export default createStore({
   state: {
@@ -13,7 +13,7 @@ export default createStore({
         category: '',
         slug: '',
         tags: [ '' ],
-        time: '',
+        time: 0,
         collections: []
       } as Recipe
     ],
@@ -37,7 +37,7 @@ export default createStore({
     searchTerm: '',
     filters: {
       tags: [],
-      time: [],
+      time: 0,
       collection: ''
     }
   },
@@ -52,7 +52,7 @@ export default createStore({
     },
 
     getFilteredRecipes(state) {
-      return filterByTags(simpleSearch(state.recipeList, state.searchTerm), state.filters.tags, state.tagList);
+      return filterByTime(filterByTags(simpleSearch(state.recipeList, state.searchTerm), state.filters.tags, state.tagList), state.filters.time);
     },
 
     getCollectionRecipes: (state) => (collectionId: string) => {
@@ -135,6 +135,10 @@ export default createStore({
       state.filters.tags = state.filters.tags.filter( (element) => {
         return tags.indexOf(element) < 0;
       } );
+    },
+
+    setTimeFilter(state, time) {
+      state.filters.time = time;
     }
 
   },

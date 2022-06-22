@@ -6,7 +6,7 @@ export interface Recipe {
     category: string
     slug: string
     tags: Array<string>
-    time: string
+    time: number
     collections: Array<string>
-    content?: Object
+    content?: Record<string, unknown>
 }

@@ -10,6 +10,10 @@
         <div class="container">
             <FilterItem v-for="tag in filterTags" :key="tag.slug" :tag="tag"></FilterItem>
         </div>
+        <h4>Maximaler Zeitaufwand</h4>
+        <div class="time-container">
+            <span class="time-item" v-for="slot in timeSlots" :key="slot" :class="{ selected: timeInput == slot}" @click="updateTimeFilter(slot)">{{ slot }} Minuten</span><span class="time-item" :class="{ selected: timeInput == 0}" @click="updateTimeFilter(0)">Alle</span>
+        </div>
     </div>
     
 </template>
@@ -22,9 +26,12 @@ import { useStore } from 'vuex';
 const store = useStore()
 
 let searchInput = ref('');
+let timeInput = ref(0);
 let showFilters = ref(false);
 
 const filterTags = computed(() => store.getters.getTags)
+
+const timeSlots = [15, 30, 45, 60]
 
 function toggleFilters () {
     showFilters.value = !showFilters.value
@@ -32,6 +39,11 @@ function toggleFilters () {
 
 function updateSearch() {
     store.commit('setSearchTerm', searchInput.value);
+}
+
+function updateTimeFilter(timeSlot: number) {
+    timeInput.value = timeSlot;
+    store.commit('setTimeFilter', timeSlot);
 }
 
 
@@ -94,6 +106,31 @@ function updateSearch() {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(6rem, 8rem));;
     grid-gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.time-item {
+    color: var(--primary);
+    border: 0.1rem solid var(--primary);
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    font-size: 80%;
+    cursor: pointer;
+}
+
+.time-item:not(:last-child) {
+    margin-right: 0.75rem;
+}
+
+.time-item::before {
+    content: '⏱️';
+    padding-right: 0.5rem;
+}
+
+.selected {
+    color: white;
+    background-color: var(--primary);
 }
 
 </style>

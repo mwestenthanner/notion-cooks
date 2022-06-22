@@ -35,14 +35,14 @@ export function advancedSearch(list: Array<Recipe>, searchTerm: string) {
 
 }
 
-export function filterByTime(list: Array<Recipe>, time: Array<string>) {
-    if (time.length == 0) {
+export function filterByTime(list: Array<Recipe>, time: number) {
+    if (time == 0) {
         return list;
     }
 
     else return list.filter(item => {
 
-        if(time.includes(item.time)) {
+        if(time >= item.time) {
             return true;
         } else return false;
       

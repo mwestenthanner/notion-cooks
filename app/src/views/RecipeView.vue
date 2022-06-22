@@ -8,7 +8,7 @@
         <div class="recipe-header">
             <div class="title-block">
                 <h2>{{ recipe.title }}</h2>
-                <h4>{{ recipe.category }} | {{ recipe.time }}</h4>
+                <h4><span v-for="tag in recipe.tags" :key="tag"><router-link :to="'/tag/' + tag">{{ tag }} | </router-link></span> Zubereitungszeit: {{ formatTime(recipe.timeActive) }}<span v-if="recipe.timePassive != 0"> | {{ recipe.timePassiveMode }}: {{ formatTime(recipe.timePassive) }}</span></h4>
             </div>
             <div class="share-block">
                 <p class="share-button" @click="toggleShareOptions()">
@@ -74,6 +74,30 @@ let shareOptions = ref(false)
 
 function toggleShareOptions() {
     shareOptions.value = !shareOptions.value
+}
+
+function formatTime(time: number) {
+
+    if (time < 60) {
+        return time + ' Minuten';
+    }
+
+    else {
+        const hours = Math.floor(time / 60);
+        const minutes = time % 60;
+        let minuteString = '';
+
+        if (minutes == 0) {
+            minuteString = ''
+        } else {
+            minuteString = minutes + ' Minuten';
+        } 
+
+        if (hours < 2) {
+            return hours + ' Stunde ' + minuteString;
+        } else return hours + ' Stunden ' + minuteString;
+    }
+
 }
 
 </script>
