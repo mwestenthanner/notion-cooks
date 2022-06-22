@@ -124,13 +124,23 @@ function updateTimeFilter(timeSlot: number) {
 }
 
 .time-item::before {
-    content: '⏱️';
-    padding-right: 0.5rem;
+    background-image: url('../../public/img/filters/Timer.svg');
+    background-size: 1.5rem 1.5rem;
+    display: inline-block;
+    width: 1.5rem; 
+    height:  1.5rem; 
+    content:"";
+    filter: invert(100%) sepia(77%) saturate(6820%) hue-rotate(310deg) brightness(101%) contrast(101%);
+    transform: translate(-0.3rem, 0.4rem);
 }
 
 .selected {
     color: white;
     background-color: var(--primary);
+}
+
+.selected::before {
+    filter: invert(1);
 }
 
 </style>

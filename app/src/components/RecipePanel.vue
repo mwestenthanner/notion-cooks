@@ -5,9 +5,14 @@
         <img :src="props.recipe.img" :alt="props.recipe.title" />
     </div>
     <div class="content">
-        <h3>{{ props.recipe.title }}</h3>
-        <div class="tags">
-            <span class="tag" v-for="tag in props.recipe.tags" :key="tag"><router-link :to="createSlug(tag)">{{ tag }}</router-link></span>
+        <div class="time">
+            <span>{{ formatTime(props.recipe.time) }}</span>
+        </div>
+        <div class="title">
+            <h3>{{ props.recipe.title }}</h3>
+            <div class="tags">
+                <span class="tag" v-for="tag in props.recipe.tags" :key="tag"><router-link :to="createSlug(tag)">{{ tag }}</router-link></span>
+            </div>
         </div>
     </div>
 </div>
@@ -28,6 +33,25 @@ function createSlug(tag: string) {
     tag = tag.replace(/\s+/g, '-')
 
     return '/tag/' + tag.toLowerCase();
+
+}
+
+function formatTime(time: number) {
+
+    if (time < 60) {
+        return time + 'm';
+    }
+
+    else {
+        const hours = Math.floor(time / 60);
+        const minutes = time % 60;
+
+        if (minutes == 0) {
+            return hours + 'h';
+        } else {
+            return hours + 'h' + minutes + 'm';
+        } 
+    }
 
 }
 
@@ -55,8 +79,32 @@ function createSlug(tag: string) {
     bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-left: 1.5rem;
+}
+
+.time {
+    margin-top: 3rem;
+    font-size: 80%;
+    font-weight: 600;
+    color: white;
+    text-align: right;
+    visibility: hidden;
+}
+
+.panel:hover .time {
+    visibility: visible;
+}
+
+.time::before {
+    background-image: url('../../public/img/filters/Timer.svg');
+    background-size: 1.5rem 1.5rem;
+    display: inline-block;
+    width: 1.5rem; 
+    height:  1.5rem; 
+    content:"";
+    filter: invert(1);
+    transform: translate(-0.3rem, 0.4rem);
 }
 
 img {
