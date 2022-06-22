@@ -92,7 +92,7 @@ function updateSearch() {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(6rem, 8rem));;
     grid-gap: 1rem;
 }
 

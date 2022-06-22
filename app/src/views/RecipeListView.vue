@@ -1,7 +1,7 @@
 <template>
 
     <div class="recipes">
-      <h2 v-if="route.params.slug">Kategorie: {{ tagName }}</h2>
+      <h2 v-if="route.params.tagSlug">Kategorie: {{ tagName }}</h2>
       <SearchFilter></SearchFilter>
       <div class="panels">
         <RecipePanel v-for="item in recipeList" :key="item.slug" :recipe="item"></RecipePanel>  
@@ -23,21 +23,21 @@ const route = useRoute()
 
 let tagName = ref('')
 
-if (route.params.slug) {
+if (route.params.tagSlug) {
   setTag()
 }
 
 const recipeList = computed(() => store.getters.getFilteredRecipes)
 
-watch(() => route.params.slug, setTag)
+watch(() => route.params.tagSlug, setTag)
 
 onBeforeRouteLeave(() => {
     store.commit('setTagFilter', []);
 })
 
 function setTag() {
-  store.commit('setTagFilter', [route.params.slug]);
-  const tag = computed(() => store.getters.getTagFromSlug(route.params.slug))
+  store.commit('setTagFilter', [route.params.tagSlug]);
+  const tag = computed(() => store.getters.getTagFromSlug(route.params.tagSlug))
   tagName.value = tag.value.name
 }
 

@@ -36,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true
   },
   {
-    path: '/tag/:slug',
+    path: '/tag/:tagSlug',
     name: 'tag',
     component: RecipeList,
     props: true
