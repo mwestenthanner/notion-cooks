@@ -63,9 +63,11 @@ export function filterByTags(list: Array<Recipe>, filterTags: Array<string>, tag
 
         // compare tag objects with filter tags
         filterTags.forEach(element => {
-            if (JSON.stringify(recipeTags).includes(element)) {
-                filter = true;
-            }
+            recipeTags.forEach(recipeTag => {
+                if(element == recipeTag.name || element == recipeTag.slug) {
+                    filter = true;
+                }
+            });
         });
 
         return filter;
