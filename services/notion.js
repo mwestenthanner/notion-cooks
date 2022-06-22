@@ -27,7 +27,8 @@ async function getRecipes () {
           category: page.properties.Category.select.name,
           slug: page.properties.Slug.formula.string,
           tags: page.properties.Tags.multi_select.map((tag) => { return tag.name }),
-          time: page.properties.TimeActive.number,
+          time: getRecipeTime(page.properties.TimeActive.number, page.properties.TimePassive.number),
+          timeActive: page.properties.TimeActive.number,
           timePassive: page.properties.TimePassive.number == null ? 0 : page.properties.TimePassive.number,
           timePassiveMode: page.properties.TimePassiveMode.select == null ? '' : page.properties.TimePassiveMode.select.name,
           collections: page.properties.Collections.relation.map((collection) => { return collection.id }),
@@ -126,6 +127,16 @@ function getListItems (list) {
 
 }
 
-getRecipes()
+function getRecipeTime(timeActive, timePassive) {
+
+  if (timeActive == null) {
+    return 0;
+  }
+
+  else if (timePassive == null) {
+    return timeActive;
+  } else return timeActive + timePassive;
+
+}
 
 module.exports = { getRecipes, getRecipeContent, getCollections }
