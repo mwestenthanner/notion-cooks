@@ -49,15 +49,50 @@ export function filterByTime(list: Array<Recipe>, time: Array<string>) {
     })
 }
 
-export function filterByTags(list: Array<Recipe>, tags: Array<string>) {
+export function filterByTags(list: Array<Recipe>, filterTags: Array<string>, tags: Array<{ name: string; slug: string; }>) {
     
-    if (tags.length == 0) {
+    if (filterTags.length == 0) {
         return list;
     }
 
-    else return list.filter(item => {
+    else return list.filter(recipe => {
 
-        if(tags.some(tag => item.tags.includes(tag)) == true) {
+        // convert recipe tags into full tag objects
+        let filter = false;
+        const recipeTags = getRecipeTagObjects(recipe, tags);
+
+        // compare tag objects with filter tags
+        filterTags.forEach(element => {
+            if (JSON.stringify(recipeTags).includes(element)) {
+                filter = true;
+            }
+        });
+
+        return filter;
+      
+    })
+
+    
+
+}
+
+export function createSlug(tag: string) {
+
+    // Remove Umlaut/Accents
+    tag = tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // Replace spaces with dashes
+    tag = tag.replace(/\s+/g, '-')
+
+    return tag.toLowerCase();
+
+}
+
+export function getRecipeTagObjects(recipe: Recipe, tags: Array<{ name: string; slug: string; }>) {
+
+    return tags.filter(tag => {
+
+        if(recipe.tags.includes(tag.name)) {
             return true;
         } else return false;
       

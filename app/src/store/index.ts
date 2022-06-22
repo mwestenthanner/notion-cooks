@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { Recipe } from '../../types'
-import { simpleSearch } from './filters'
+import { simpleSearch, filterByTags,createSlug } from './filters'
 
 export default createStore({
   state: {
@@ -18,7 +18,10 @@ export default createStore({
       } as Recipe
     ],
     tagList: [
-      ''
+      {
+        name: '',
+        slug: ''
+      }
     ],
     collectionList: [
       {
@@ -48,7 +51,7 @@ export default createStore({
     },
 
     getFilteredRecipes(state) {
-      return simpleSearch(state.recipeList, state.searchTerm);
+      return filterByTags(simpleSearch(state.recipeList, state.searchTerm), state.filters.tags, state.tagList);
     },
 
     getCollectionRecipes: (state) => (collectionId: string) => {
@@ -57,6 +60,10 @@ export default createStore({
 
     getCategories(state) {
       return state.tagList;
+    },
+
+    getTagFromSlug: (state) => (slug: string) => {
+      return state.tagList.find(item => item.slug == slug);
     },
 
     getCollections(state) {
@@ -89,13 +96,19 @@ export default createStore({
 
     setTagListFromRecipes(state) {
 
-      const tags: string[] = []
+      const tags: { name: string; slug: string; }[] = []
 
       state.recipeList.forEach(recipe => {
 
         recipe.tags.forEach(tag => {
-          if (!tags.includes(tag)) {
-            tags.push(tag);
+          if (!JSON.stringify(tags).includes(tag)) {
+
+            const tagObject = {
+              name: tag,
+              slug: createSlug(tag)
+            }
+
+            tags.push(tagObject);
           }
         });
 
@@ -106,6 +119,10 @@ export default createStore({
 
     setSearchTerm(state, search) {
       state.searchTerm = search;
+    },
+
+    setTagFilter(state, tags) {
+      state.filters.tags = tags;
     }
 
   },

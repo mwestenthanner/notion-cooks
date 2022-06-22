@@ -1,6 +1,7 @@
 <template>
 
     <div class="recipes">
+      <h2 v-if="route.params.slug">Kategorie: {{ tagName }}</h2>
       <SearchFilter></SearchFilter>
       <div class="panels">
         <RecipePanel v-for="item in recipeList" :key="item.slug" :recipe="item"></RecipePanel>  
@@ -12,12 +13,33 @@
 <script lang="ts" setup>
 import SearchFilter from '../components/SearchFilter.vue';
 import RecipePanel from '../components/RecipePanel.vue';
-import { computed } from 'vue';
+import { computed, watch, ref } from 'vue';
 import { useStore } from 'vuex';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
 const store = useStore()
 
+const route = useRoute()
+
+let tagName = ref('')
+
+if (route.params.slug) {
+  setTag()
+}
+
 const recipeList = computed(() => store.getters.getFilteredRecipes)
+
+watch(() => route.params.slug, setTag)
+
+onBeforeRouteLeave(() => {
+    store.commit('setTagFilter', []);
+})
+
+function setTag() {
+  store.commit('setTagFilter', [route.params.slug]);
+  const tag = computed(() => store.getters.getTagFromSlug(route.params.slug))
+  tagName.value = tag.value.name
+}
 
 </script>
 

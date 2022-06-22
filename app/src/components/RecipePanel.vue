@@ -1,5 +1,5 @@
 <template>
-<router-link :to="'/recipe/' + props.recipe.slug">
+<router-link class="link" :to="'/recipe/' + props.recipe.slug">
 <div class="panel">
     <div class="image">
         <img :src="props.recipe.img" :alt="props.recipe.title" />
@@ -7,7 +7,7 @@
     <div class="content">
         <h3>{{ props.recipe.title }}</h3>
         <div class="tags">
-            <span class="tag" v-for="tag in props.recipe.tags" :key="tag">{{ tag }}</span>
+            <span class="tag" v-for="tag in props.recipe.tags" :key="tag"><router-link :to="createSlug(tag)">{{ tag }}</router-link></span>
         </div>
     </div>
 </div>
@@ -18,6 +18,18 @@
 import { defineProps } from 'vue';
 
 const props = defineProps(['recipe'])
+
+function createSlug(tag: string) {
+
+    // Remove Umlaut/Accents
+    tag = tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // Replace spaces with dashes
+    tag = tag.replace(/\s+/g, '-')
+
+    return '/tag/' + tag.toLowerCase();
+
+}
 
 </script>
 
@@ -82,8 +94,12 @@ img {
 
 .tag:hover {
     background-color: transparent;
-    color: var(--primary); 
-    border: 1px solid var(--primary); 
+    border: 0.08rem solid var(--primary); 
+    padding: 0.22rem 0.32rem;
+}
+
+.tag:hover a {
+    color: var(--primary);  
 }
 
 </style>

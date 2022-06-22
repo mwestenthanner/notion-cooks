@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/recipe/',
     name: 'recipelist',
-    alias: '/recipes',
+    alias: ['/recipes', '/tag/'],
     component: RecipeList
   },
   {
@@ -33,6 +33,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/collection/:slug',
     name: 'collection',
     component: Collection,
+    props: true
+  },
+  {
+    path: '/tag/:slug',
+    name: 'tag',
+    component: RecipeList,
     props: true
   },
 ]
