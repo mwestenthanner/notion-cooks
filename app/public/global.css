@@ -24,3 +24,27 @@ a, a:visited {
 body {
     font-family: 'Roboto Mono', monospace;
 }
+
+/* --- PRINT STYLING --- */
+@media print {
+
+    header, footer, h1, nav {
+        display: none;
+    }
+
+    header {
+        margin: 0 !important;
+    }
+
+    main {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+  }
+
+@page  
+{ 
+    size: auto;
+    margin: 20mm 20mm 20mm 20mm;  
+} 

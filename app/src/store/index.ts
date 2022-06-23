@@ -67,6 +67,10 @@ export default createStore({
       return state.tagList.find(item => item.slug == slug);
     },
 
+    getTagFromName: (state) => (name: string) => {
+      return state.tagList.find(item => item.name == name);
+    },
+
     getCollections(state) {
       return state.collectionList;
     },

@@ -104,7 +104,7 @@ function updateTimeFilter(timeSlot: number) {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(6rem, 8rem));;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 7rem));;
     grid-gap: 1rem;
     margin-bottom: 1.5rem;
 }
