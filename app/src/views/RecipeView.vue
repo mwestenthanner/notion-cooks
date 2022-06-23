@@ -3,14 +3,14 @@
     <div class="left">
         <img :src="recipe.img" :alt="recipe.title">
     </div>
-    <div class="right">
+    <div class="right" ref="input">
 
         <div class="recipe-header">
             <div class="title-block">
                 <h2>{{ recipe.title }}</h2>
                 <h4><span v-for="tag in recipe.tags" :key="tag">{{ tag }} | </span> Zubereitungszeit: {{ formatTime(recipe.timeActive) }}<span v-if="recipe.timePassive != 0"> | {{ recipe.timePassiveMode }}: {{ formatTime(recipe.timePassive) }}</span></h4>
             </div>
-            <div class="share-block">
+            <div class="share-block" data-html2canvas-ignore="true">
                 <button class="share-button" @click="toggleShareOptions()">
                     <svg viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 64 64"><path d="M-264.2-339.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9c0 4.3-3.5 7.9-7.9 7.9zm0-12.9c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9c0-2.6-2.2-4.9-4.9-4.9zM-232.1-356c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zM-232.1-323.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9z" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path><path d="m-238.6-333.2-20.6-10.3 1.4-2.9 20.7 10.3-1.5 2.9M-257.8-349.3l-1.4-2.8 20.6-10.3 1.5 2.8-20.7 10.3" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path></svg>
                 </button>
@@ -66,8 +66,9 @@
 
 <script lang="ts" setup async>
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import html2pdf from 'html2pdf.js'
 
 const store = useStore()
 
@@ -77,6 +78,12 @@ const slug = route.params.slug
 const recipe = computed(() => store.getters.getRecipeContent(slug))
 
 let shareOptions = ref(false)
+
+const input = ref<HTMLInputElement | null>(null)
+
+onMounted(() => {
+  input.value?.focus()
+})
 
 function toggleShareOptions() {
     shareOptions.value = !shareOptions.value
@@ -111,7 +118,19 @@ function mailRecipe() {
 }
 
 function downloadPDF() {
-    console.log('downloading');
+
+    const element = input.value;
+    const options = { 
+        margin: 20, 
+        filename: recipe.value.title + ' - Rezept.pdf', 
+        image: {type: 'jpg', quality: 0.95}, 
+        html2canvas: {dpi: 192, letterRendering: true}, 
+        jsPDF: {format: 'a4', orientation: 'portrait'} 
+    };
+    html2pdf(element, options).set({
+        pagebreak: { mode: 'avoid-all' }
+    });
+
 }
 
 function printRecipe() {
@@ -228,6 +247,10 @@ h3 {
         margin: 0;
         padding: 0;
     }
+}
+
+.pdf .share-block {
+    display: none;
 }
 
 </style>
