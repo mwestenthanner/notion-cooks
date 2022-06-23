@@ -16,12 +16,6 @@
                 </button>
                 <div class="share-popup" v-if="shareOptions">
                     <div>
-                        <button class="share-button" @click="mailRecipe()">
-                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g data-name="mail email e-mail letter"><path d="M28 13a1 1 0 0 0-1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 0-2 0v8a3 3 0 0 0 .88 2.12A3 3 0 0 0 6 25h20a3 3 0 0 0 2.12-.88A3 3 0 0 0 29 22v-8a1 1 0 0 0-1-1Z" fill="#ffffff" class="fill-000000"></path><path d="M15.4 18.8a1 1 0 0 0 1.2 0l11.81-8.86a1 1 0 0 0 .3-1.23 3.06 3.06 0 0 0-.59-.83A3 3 0 0 0 26 7H6a3 3 0 0 0-2.12.88 3.06 3.06 0 0 0-.59.83 1 1 0 0 0 .3 1.23ZM6 9h20a.9.9 0 0 1 .28 0L16 16.75 5.72 9A.9.9 0 0 1 6 9Z" fill="#ffffff" class="fill-000000"></path></g></svg>
-                        </button>
-                        <p>Mail</p>
-                    </div>
-                    <div>
                         <button class="share-button" @click="downloadPDF()">
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g data-name="1"><path d="M255.13 385.54a15 15 0 0 1-11.14-5L103.67 224.93a15 15 0 0 1 11.14-25H171V63a15 15 0 0 1 15-15h138.3a15 15 0 0 1 15 15v136.89h56.16a15 15 0 0 1 11.14 25L266.27 380.58a15 15 0 0 1-11.14 4.96Zm-106.6-155.65 106.6 118.25 106.61-118.25H324.3a15 15 0 0 1-15-15V78H201v136.89a15 15 0 0 1-15 15Z" fill="#ffffff" class="fill-000000"></path><path d="M390.84 450H119.43a65.37 65.37 0 0 1-65.3-65.29v-38.17a15 15 0 0 1 30 0v38.17a35.34 35.34 0 0 0 35.3 35.29h271.41a35.33 35.33 0 0 0 35.29-35.29v-38.17a15 15 0 0 1 30 0v38.17A65.37 65.37 0 0 1 390.84 450Z" fill="#ffffff" class="fill-000000"></path></g></svg>
                         </button>
@@ -32,6 +26,14 @@
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.249 17.25h-3a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v7.5a1.5 1.5 0 0 1-1.5 1.5h-3M3.749 9.75h1.5" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px" class="stroke-000000"></path><path d="M5.249 12.75h13.5v10.5h-13.5zM18.749 6.75h-13.5v-4.5a1.5 1.5 0 0 1 1.5-1.5h10.5a1.5 1.5 0 0 1 1.5 1.5ZM8.249 15.75h7.5M8.249 18.75h5.25" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px" class="stroke-000000"></path></svg>
                         </button>
                         <p>Drucken</p>
+                    </div>
+                    <div>
+                        <a class="share-link" :href="mailRecipe()">
+                        <button class="share-button" @click="downloadPDF()">
+                                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g data-name="mail email e-mail letter"><path d="M28 13a1 1 0 0 0-1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 0-2 0v8a3 3 0 0 0 .88 2.12A3 3 0 0 0 6 25h20a3 3 0 0 0 2.12-.88A3 3 0 0 0 29 22v-8a1 1 0 0 0-1-1Z" fill="#ffffff" class="fill-000000"></path><path d="M15.4 18.8a1 1 0 0 0 1.2 0l11.81-8.86a1 1 0 0 0 .3-1.23 3.06 3.06 0 0 0-.59-.83A3 3 0 0 0 26 7H6a3 3 0 0 0-2.12.88 3.06 3.06 0 0 0-.59.83 1 1 0 0 0 .3 1.23ZM6 9h20a.9.9 0 0 1 .28 0L16 16.75 5.72 9A.9.9 0 0 1 6 9Z" fill="#ffffff" class="fill-000000"></path></g></svg>
+                        </button>
+                        </a>
+                        <p>Mail</p>
                     </div>
                 </div>
             </div>
@@ -114,7 +116,10 @@ function formatTime(time: number) {
 }
 
 function mailRecipe() {
-    console.log('mailing');
+    const subject = 'Rezept-Link - ' + recipe.value.title;
+    const body = 'Hier findest du den Link zum Rezept: ' + window.location.origin + route.fullPath;
+
+    return 'mailto:%20?body=' + encodeURIComponent(body) + '&subject=' + encodeURIComponent(subject)
 }
 
 function downloadPDF() {

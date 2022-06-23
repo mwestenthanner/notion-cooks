@@ -60,7 +60,7 @@ export default createStore({
     },
 
     getTags(state) {
-      return state.tagList;
+      return state.tagList.sort((a, b) => (a.name > b.name) ? 1 : -1);
     },
 
     getTagFromSlug: (state) => (slug: string) => {
