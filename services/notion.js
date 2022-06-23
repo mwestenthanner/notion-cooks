@@ -9,12 +9,22 @@ const database_id = process.env.NOTION_DATABASE_ID
 const collections_id = process.env.NOTION_COLLECTION_DB_ID
 
 async function getRecipes () {
+
     const payload = {
-        path: `databases/${database_id}/query`,
-        method: 'POST',
+        database_id: database_id,
+        filter: {
+          or: [
+            {
+              property: 'OnlineStatus',
+              rich_text: {
+                is_empty: true,
+              },
+            },
+          ]
+        }
       }
-    
-    const { results } = await notion.request(payload)
+
+    const { results } = await notion.databases.query(payload)
 
     const recipes = await Promise.all(results.map(async (page) => {
       try {
@@ -138,5 +148,7 @@ function getRecipeTime(timeActive, timePassive) {
   } else return timeActive + timePassive;
 
 }
+
+getRecipes()
 
 module.exports = { getRecipes, getRecipeContent, getCollections }

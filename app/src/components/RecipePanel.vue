@@ -89,11 +89,12 @@ function formatTime(time: number) {
     font-weight: 600;
     color: white;
     text-align: right;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1000ms;
 }
 
 .panel:hover .time {
-    visibility: visible;
+    opacity: 1;
 }
 
 .time::before {
