@@ -1,14 +1,9 @@
 <template>
 
-  <header>
-    <MainTitle></MainTitle>
-    <NavList></NavList>
-  </header>
+  <HeaderBlock></HeaderBlock>
 
   <main>
-
     <router-view/>
-
   </main>
 
   <footer>
@@ -18,11 +13,10 @@
 </template>
 
 <script lang="ts" setup async>
-import MainTitle from './components/MainTitle.vue';
-import NavList from './components/NavList.vue';
+
 import { useStore } from 'vuex';
 import { onBeforeMount } from 'vue';
-
+import HeaderBlock from './components/HeaderBlock.vue';
 
 const store = useStore()
 
@@ -41,6 +35,8 @@ onBeforeMount(async () => {
 
     });
 
+
+
 </script>
 
 <style>
@@ -48,14 +44,6 @@ onBeforeMount(async () => {
 header, main, footer > div {
   max-width: 70%;
   margin-left: 15%;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  align-items: center;
 }
 
 main {
@@ -66,6 +54,13 @@ footer {
   padding: 3rem 4rem;
   background-color: var(--primary);
   color: white;
+}
+
+@media (max-width: 965px) {
+header, main, footer > div {
+  max-width: 80%;
+  margin-left: 10%;
+}
 }
 
 </style>

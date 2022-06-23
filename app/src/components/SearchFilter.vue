@@ -93,9 +93,10 @@ function updateTimeFilter(timeSlot: number) {
     background: rgb(246, 246, 246);
     padding: 2rem;
     border-radius: 0.5rem;
-    width: 65%;
+    width: 70%;
     margin-left: 15%;
     margin-bottom: 2rem;
+    box-sizing: border-box;
 }
 
 .filter-box h4 {
@@ -117,6 +118,8 @@ function updateTimeFilter(timeSlot: number) {
     width: fit-content;
     font-size: 80%;
     cursor: pointer;
+    white-space: nowrap;
+    line-height: 3rem;
 }
 
 .time-item:not(:last-child) {
@@ -142,5 +145,13 @@ function updateTimeFilter(timeSlot: number) {
 .selected::before {
     filter: invert(1);
 }
+
+@media (max-width: 760px) {
+  .search-filter, .filter-box {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 
 </style>

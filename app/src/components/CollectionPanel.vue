@@ -73,4 +73,10 @@ img {
     font-weight: 400;
 }
 
+@media (max-width: 1490px) {
+    .content h2 {
+        font-size: 200%;
+    }
+}
+
 </style>

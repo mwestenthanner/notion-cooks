@@ -59,6 +59,22 @@ function setTag() {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem,18rem));
   grid-gap: 2rem;
+  justify-content: center;
 }
+
+@media (max-width: 965px) {
+  .recipes {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .panels {
+    grid-template-columns: repeat(auto-fit, minmax(14rem,100%));
+  }
+
+}
+
 
 </style>

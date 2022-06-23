@@ -12,7 +12,8 @@
             </div>
             <div class="share-block" data-html2canvas-ignore="true">
                 <button class="share-button" @click="toggleShareOptions()">
-                    <svg viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 64 64"><path d="M-264.2-339.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9c0 4.3-3.5 7.9-7.9 7.9zm0-12.9c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9c0-2.6-2.2-4.9-4.9-4.9zM-232.1-356c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zM-232.1-323.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9z" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path><path d="m-238.6-333.2-20.6-10.3 1.4-2.9 20.7 10.3-1.5 2.9M-257.8-349.3l-1.4-2.8 20.6-10.3 1.5 2.8-20.7 10.3" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path></svg>
+                    <svg v-if="!shareOptions" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 64 64"><path d="M-264.2-339.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9c0 4.3-3.5 7.9-7.9 7.9zm0-12.9c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9c0-2.6-2.2-4.9-4.9-4.9zM-232.1-356c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zM-232.1-323.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9-3.6 7.9-7.9 7.9zm0-12.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9z" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path><path d="m-238.6-333.2-20.6-10.3 1.4-2.9 20.7 10.3-1.5 2.9M-257.8-349.3l-1.4-2.8 20.6-10.3 1.5 2.8-20.7 10.3" transform="translate(280 380)" fill="#ffffff" class="fill-134563"></path></svg>
+                    <svg class="close-button" v-if="shareOptions" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="Layer 2" id="Layer_2" fill="#ffffff"><path d="M4,29a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42l24-24a1,1,0,1,1,1.42,1.42l-24,24A1,1,0,0,1,4,29Z"/><path d="M28,29a1,1,0,0,1-.71-.29l-24-24A1,1,0,0,1,4.71,3.29l24,24a1,1,0,0,1,0,1.42A1,1,0,0,1,28,29Z"/></g><g id="frame"><rect fill="none" height="32" width="32"/></g></svg>
                 </button>
                 <div class="share-popup" v-if="shareOptions">
                     <div>
@@ -182,6 +183,11 @@ function printRecipe() {
     border: none;
 }
 
+.close-button {
+    max-width: 80%;
+    transform: translate(0, 0.1rem); 
+}
+
 .share-popup {
     position: absolute;
     display: grid;
@@ -254,8 +260,51 @@ h3 {
     }
 }
 
-.pdf .share-block {
-    display: none;
+@media (max-width: 1100px) {
+    .recipe {
+        max-width: 100%;
+        margin-left: 0;
+        margin-top: 3rem;
+    }
+
+    .share-popup {
+        right: 0rem;
+    }
+}
+
+@media (max-width: 760px) {
+  
+    .recipe {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+        margin-left: 0;
+        padding-top: 3rem;
+    }
+
+    .left {
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border-radius: 2rem;
+        position: relative;
+    } 
+
+    .left > img {
+        position: absolute;
+        top: -9999px;
+        bottom: -9999px;
+        left: -9999px;
+        right: -9999px;
+        margin: auto;
+    }
+
+    .recipe-header {
+        display: grid;
+        grid-template-columns: 1fr;  
+    }
+
 }
 
 </style>
