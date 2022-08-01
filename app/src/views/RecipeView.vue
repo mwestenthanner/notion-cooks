@@ -151,6 +151,7 @@ function printRecipe() {
     max-width: 90%;
     margin-left: 5%;
     grid-template-columns: 45% 1fr;
+    color: var(--font);
 }
 
 .left img {
@@ -199,6 +200,7 @@ function printRecipe() {
     top: 4rem;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25); 
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    background-color: var(--background);
 }
 
 .share-popup p {
@@ -224,7 +226,7 @@ h3 {
 }
 
 .description {
-    background-color: rgb(237, 237, 237);
+    background-color: var(--secondary-background);
     padding: 2rem;
 }
 
@@ -304,6 +306,12 @@ h3 {
         display: grid;
         grid-template-columns: 1fr;  
     }
+
+}
+
+@media (prefers-color-scheme: dark) {
+    
+
 
 }
 

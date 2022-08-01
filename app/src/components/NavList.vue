@@ -71,7 +71,7 @@ ul li:not(:last-child) {
     display: none;
     width: 100%;
     z-index: 5;
-    background-color: white;
+    background-color: var(--background);
     border-radius: 0 0 0.5rem 0.5rem
 }
 

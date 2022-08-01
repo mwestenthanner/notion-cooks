@@ -31,5 +31,13 @@ h1 {
     background-size: cover;
 }
 
+@media (prefers-color-scheme: dark) {
+    
+    .heading::after {
+        opacity: 0.4;
+    }
+
+}
+
 
 </style>

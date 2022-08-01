@@ -52,6 +52,7 @@ header {
 .mobile-icon {
     width: 1.5rem;
     height: auto;
+    fill: var(--font);
 }
 
 .nav-button {
