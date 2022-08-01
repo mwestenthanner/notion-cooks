@@ -101,7 +101,7 @@ async function getCollections() {
     return collections;
 }
 
-// Parses Notion simple tables, but only 2 cells per row
+// Parses Notion simple tables, but only 3 cells per row
 async function getTableContent (tableId) {
 
   const content = await notion.blocks.children.list({
@@ -112,7 +112,8 @@ async function getTableContent (tableId) {
   const tableContent = content.results.map((object) => {
     return {
       quantity: object.table_row.cells[0][0] == undefined ? '' : object.table_row.cells[0][0].plain_text,
-      ingredient: object.table_row.cells[1][0] == undefined ? '' : object.table_row.cells[1][0].plain_text
+      unit: object.table_row.cells[1][0] == undefined ? '' : object.table_row.cells[1][0].plain_text,
+      ingredient: object.table_row.cells[2][0] == undefined ? '' : object.table_row.cells[2][0].plain_text
     }
 
   })
